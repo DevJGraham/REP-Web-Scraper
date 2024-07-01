@@ -1,18 +1,17 @@
+import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import ElementClickInterceptedException
-import time
 
 
 # url to come back to when typing in a new street name and municipality
-home_base_url = "https://www2.alleghenycounty.us/RealEstate/Search.aspx"
+HOME_BASE_URL = "https://www2.alleghenycounty.us/RealEstate/Search.aspx"
+
 
 # Resets the browser after data has been extracted for the first property
-
-
 def browser_reset(browser, street_name, municipality):
-    browser.get(home_base_url)
+    browser.get(HOME_BASE_URL)
     try:
         # print("Browser Reset Initiating...")
         # Testing for Street Name box
@@ -53,11 +52,11 @@ def navigate_to(browser, button_id):
     button.click()
 
 
-def click_element(browser, by, element):
+def click_element(browser, by, path):
     try:
         # print("Testing clickable_button...")
-        clickable_element = WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable((by, element))
+        clickable_element = WebDriverWait(browser, 4).until(
+            EC.element_to_be_clickable((by, path))
         )
         try:
             # print("Clicking Button...")
@@ -69,7 +68,8 @@ def click_element(browser, by, element):
             time.sleep(1)
             clickable_element.click()
     except ElementClickInterceptedException:
-        print("Element Click Intercepted... Attempt to scroll the element into view and then try again.")
+        print("Element Click Intercepted...\n")
+        print("Attempt to scroll the element into view and then try again.")
         browser.execute_script(
             "arguments[0].scrollIntoView(true)", clickable_element)
         time.sleep(1)
