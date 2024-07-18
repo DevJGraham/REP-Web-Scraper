@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import ElementClickInterceptedException
 import pandas as pd
 
-
+start = time.time()
 browser = webdriver.Chrome()
 url = "https://www2.alleghenycounty.us/RealEstate/Tax.aspx?ParcelID=0177S00203000000&SearchType=2&CurrRow=5&SearchName=&SearchStreet=UNION&SearchNum=&SearchMuni=854&SearchParcel=&pin=0177S00203000000"
 browser.get(url)
@@ -67,3 +67,6 @@ real_estate_data.append(property_data)
 df = get_df(real_estate_data)
 # print(property_data)
 print(df)
+
+end = time.time()
+print("Time difference", end - start)

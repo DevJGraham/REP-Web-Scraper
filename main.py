@@ -2,7 +2,11 @@ from data_extraction.single_page_extraction import get_df
 from data_extraction.per_street_extraction import click_links_on_page
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
+import time
 
+# Takes 3.4 minutes without multiprocessing
+
+start = time.time()
 # Creating a browser for Google Chrome
 browser = webdriver.Chrome()
 
@@ -30,6 +34,9 @@ else:
 df = get_df(real_estate_data)
 print("Success...")
 print(df)
-df.to_csv('UNION_AVE_RealEstateData.csv', index=False, sep=';')
+# df.to_csv('UNION_AVE_RealEstateData.csv', index=False, sep=';')
 
 browser.close()
+
+end = time.time()
+print("Time Difference", end - start)
