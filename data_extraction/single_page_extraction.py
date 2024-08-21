@@ -1,5 +1,6 @@
 from datetime import datetime
 import pandas as pd
+from navigation.navigation import navigate_to
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -43,6 +44,7 @@ class Extract:
     # Including bedroom_count, bathroom_count, use_code, sq_ft
     def extract_build_info(self, property_data):
         try:
+            navigate_to(self.browser, "Header1_lnkBuilding")
             # Extract info from Building Info page and put it into the property_data dictionary
             property_data["bedroom_count"] = WebDriverWait(self.browser, 10).until(
                 EC.presence_of_element_located((By.ID, "lblResBedrooms"))
@@ -62,6 +64,7 @@ class Extract:
 
     # Method that extracts the tax status for the last four years
     def extract_tax_info(self, property_data):
+        navigate_to(self.browser, "Header1_lnkTax")
         for xpath_value in range(2, 6):
             year = current_year - (xpath_value - 2)
             property_data[f"{year}"] = self.browser.find_element(
