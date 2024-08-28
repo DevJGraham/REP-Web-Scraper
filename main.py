@@ -14,8 +14,8 @@ browser = webdriver.Chrome()
 real_estate_data = []
 
 # Testing with this street_name and municipality
-street_name = "UNION"
-municipality = "Swissvale"
+street_name = "FORWARD"
+municipality = "114 14th Ward - PITTSBURGH"
 
 max_pages = 20  # Set this to your desired maximum number of pages
 page_index = 0
@@ -34,7 +34,7 @@ else:
 df = get_df(real_estate_data)
 print("Success...")
 print(df)
-# df.to_csv('UNION_AVE_RealEstateData.csv', index=False, sep=';')
+df.to_csv('FORWARD_RealEstateData.csv', index=False, sep=';')
 
 browser.close()
 
