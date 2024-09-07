@@ -3,6 +3,7 @@ from data_extraction.single_page_extraction import Extract
 from navigation.navigation import browser_reset
 from navigation.navigation import click_element
 from navigation.navigation import navigate_to
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 import multiprocessing as mp
 import concurrent.futures
 
@@ -66,7 +67,6 @@ def click_property_link(browser, property_index, street_name, municipality, page
         print(f"Resetting Browser for property index {property_index}")
         browser_reset(browser, street_name, municipality)
         if page_index not in (None, 0):
-
             # Clicking the correct page number
             click_element(
                 browser, By.XPATH, f"//tbody/tr[17]/td/a[{page_index}]")
@@ -84,4 +84,10 @@ def click_property_link(browser, property_index, street_name, municipality, page
     except AttributeError as e:
         print("An element was not found:", e)
         print(f"{page_index + 1} pages for {street_name}")
+        return None
+    except NoSuchElementException as e:
+        print(f"Property element not found on page {page_index} for property index {property_index}")
+        return None
+    except TimeoutException as e:
+        print(f"Page {page_index} took too long to load for property index {property_index}")
         return None
