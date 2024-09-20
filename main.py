@@ -8,9 +8,9 @@ import time
 import functools
 
 # Takes 3.4 minutes without multiprocessing
-# TODO: Make a function that finds how many pages the number has and set it to max pages
-# TODO: Make a function that finds out how many properties are on the last page and then make run the click preprty links with the updated property count
-# TODO: Run through any other types of exceptions I could run into and make sure the program will keep running even if it runs into errors
+# TODO: Make a function that get's all of the parcel ID numbers for the properties on a given street.
+# TODO: Create a function that can navigate to a page with given input paramters (parcel ID, general info vs building info etc)
+
 
 start = time.time()
 # Creating a browser for Google Chrome
